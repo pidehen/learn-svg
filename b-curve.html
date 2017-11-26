@@ -1,0 +1,29 @@
+<!doctype>
+<html>
+  <head>
+    <title>贝塞尔曲线</title>
+  </head>
+  <body>
+    <svg width="500" height="500" style="border: 1px solid #fff">
+
+      <!-- 贝塞尔曲线 -->
+      <!--
+        对应着path的指令就是 CSQT
+        C：三次贝塞尔曲线（有两个控制点）
+        S: 平滑的三次贝塞尔曲线
+        Q: 二次贝塞尔曲线（有1个控制点）
+        T: 平滑的二次贝塞尔曲线
+
+        贝塞尔曲线的控制点横坐标的距离决定弧度，纵坐标的距离决定方向
+       -->
+
+       <path d="M20 20, C90 50, 100 50, 120 20" fill="#fff"></path>
+
+       <path d="M60 60, Q100 100, 200 60" fill="none" stroke-width="1" stroke="red"></path>
+
+       <path d="M100 100, Q150 150, 200 100 T250 120" fill="none" stroke="pink"></path>
+
+
+    </svg>
+  </body>
+</html>

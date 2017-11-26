@@ -1,0 +1,106 @@
+<!doctype>
+<html>
+  <head>
+    <title>钢笔工具</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <svg id="app" width="100%" height="100%"></svg>
+    <script type="text/javascript" src="https://cdn.staticfile.org/snap.svg/0.5.1/snap.svg-min.js"></script>
+    <script>
+
+      class Canvas {
+
+        constructor() {
+          this.appEl = Snap('#app');
+          this.circleBoxEl = this.appEl.g();
+          this.circles = [];
+          this.drawing = false;
+
+          this.bindEvent();
+        }
+
+        bindEvent() {
+          const { node } = this.appEl;
+
+          node.addEventListener('mousedown', this.handleMouseDown.bind(this), false);
+          node.addEventListener('mousemove', this.handleMouseMove.bind(this), false);
+          node.addEventListener('mouseup', this.handleMouseUp.bind(this), false);
+        }
+
+        handleMouseDown({ offsetX, offsetY }) {
+          const circle = new Circle({ cx: offsetX, cy: offsetY });
+          this.circleBoxEl.add(circle.draw(this.appEl));
+          this.circles.push(circle);
+        }
+
+        handleMouseMove() {
+
+        }
+
+        handleMouseUp() {
+          const onlyMove = !this.circles.length;
+        }
+
+      }
+
+      class Point {
+
+        /*
+         @prop obj
+           obj.type { String } 点类别 line|circle
+           obj.x { Number } line的x坐标
+           obj.y { Number } line的y坐标
+           obj.cx { Number } line的cx坐标
+           obj.cy { Number } line的cy坐标
+        */
+        constructor({ type = 'line', x = 0, y = 0, cx = 0, cy = 0 }) {
+          this.type = type;
+          this.x = x;
+          this.y = y;
+          this.cx = cx;
+          this.cy = cy;
+        }
+
+        moveTo(dx, dy) {
+          if (this.type === 'line') {
+            this.x += dx;
+            this.y += dy;
+          } else if (this.type === 'circle') {
+            this.cx += dx;
+            this.cy += dy;
+          }
+        }
+
+      }
+
+
+      class Circle {
+
+        constructor({ type = 'float', cx = 0, cy = 0 }) {
+          this.type = type;
+          this.cx = cx;
+          this.cy = cy;
+          this.attr = {
+            stroke: 'none',
+            fill: '#ff0000'
+          };
+          this.radius = 3;
+        }
+
+        draw(paper) {
+          return paper.circle(this.cx, this.cy, this.radius).attr(this.attr);
+        }
+
+      }
+
+    new Canvas;
+
+    </script>
+  </body>
+</html>
